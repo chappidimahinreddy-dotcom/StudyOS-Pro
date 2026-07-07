@@ -1,0 +1,6 @@
+{
+  "name": "StudyOS",
+  "description": "A premium study productivity dashboard with Pomodoro timers, task organization, statistics, and an interactive AI Coach.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
