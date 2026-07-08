@@ -1,20 +1,20 @@
 import { useState, useEffect } from 'react';
-import { 
-  motion, 
-  AnimatePresence 
+import {
+  motion,
+  AnimatePresence
 } from 'motion/react';
-import { 
-  Bell, 
-  Search, 
-  Plus, 
-  Sparkles, 
-  Zap, 
-  TrendingUp, 
-  Flame, 
-  Calendar as CalendarIcon, 
-  CheckSquare, 
-  Bot, 
-  Timer, 
+import {
+  Bell,
+  Search,
+  Plus,
+  Sparkles,
+  Zap,
+  TrendingUp,
+  Flame,
+  Calendar as CalendarIcon,
+  CheckSquare,
+  Bot,
+  Timer,
   Award,
   BookOpen,
   Info,
@@ -203,7 +203,7 @@ export default function App() {
     if (calculatedLevel > level) {
       setLevel(calculatedLevel);
       setLevelUpMessage(`🎉 LEVEL UP! You reached Level ${calculatedLevel}! You are recognized as an elite scholar!`);
-      
+
       // Inject milestone alert notification
       const newNotification: Notification = {
         id: `level-up-${calculatedLevel}`,
@@ -227,11 +227,11 @@ export default function App() {
       const updated = prevTasks.map(task => {
         if (task.id === id) {
           const newState = !task.completed;
-          
+
           // If task completed, grant +100 XP as a premium reward!
           if (newState) {
             setXp(prev => prev + 100);
-            
+
             // Increment any Computer Science task counts in goals if relevant
             if (task.subject === 'Computer Science') {
               incrementGoalProgress('goal-2');
@@ -278,7 +278,7 @@ export default function App() {
 
   // Goals Interaction Handlers
   const incrementGoalProgress = (id: string) => {
-    setGoals(prevGoals => 
+    setGoals(prevGoals =>
       prevGoals.map(goal => {
         if (goal.id === id) {
           const nextCount = goal.current + 1;
@@ -286,7 +286,7 @@ export default function App() {
             // Target achieved! Reward major bonus XP!
             setXp(prev => prev + goal.xpReward);
             alert(`🏆 Monthly Milestone Unlocked: "${goal.title}"! Awarded +${goal.xpReward} XP!`);
-            
+
             const goalNotice: Notification = {
               id: `goal-unlock-${goal.id}`,
               text: `🏆 Achievement unlocked: "${goal.title}" (+${goal.xpReward} XP).`,
@@ -320,7 +320,7 @@ export default function App() {
     setXp(prev => prev + 150); // Study session awards +150 XP!
 
     // Track Focus hours in goals
-    setGoals(prev => 
+    setGoals(prev =>
       prev.map(g => {
         if (g.id === 'goal-1') {
           // Add hours studied to current target
@@ -375,7 +375,7 @@ export default function App() {
 
     const plan = incompleteTasks.map((t, idx) => `Block ${idx + 1}: Dedicate a ${t.duration || 25}m Pomodoro block to "${t.title}" (${t.subject})`).join('\n\n');
     alert(`⚡ AI STUDY OS STRATEGY PROTOCOL FORMULATED:\n\n${plan}\n\nRemoving distractions and preparing focus timers.`);
-    
+
     // Switch view to Focus tab so they can immediately begin
     setActiveSection('focus');
   };
@@ -389,7 +389,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#050816] bg-mesh-purple bg-mesh-cyan grid-overlay flex flex-col md:flex-row relative text-slate-100">
-      
+
       {/* Level-Up Toast Alert banner */}
       <AnimatePresence>
         {levelUpMessage && (
@@ -409,23 +409,23 @@ export default function App() {
       </AnimatePresence>
 
       {/* Global Task Modal */}
-      <TaskModal 
-        isOpen={isTaskModalOpen} 
-        onClose={() => setIsTaskModalOpen(false)} 
-        onAddTask={handleAddTask} 
+      <TaskModal
+        isOpen={isTaskModalOpen}
+        onClose={() => setIsTaskModalOpen(false)}
+        onAddTask={handleAddTask}
       />
 
       {/* Navigation Layout Side Panel */}
-      <Sidebar 
-        activeSection={activeSection} 
-        setActiveSection={setActiveSection} 
+      <Sidebar
+        activeSection={activeSection}
+        setActiveSection={setActiveSection}
         xp={xp}
         level={level}
       />
 
       {/* Main StudyOS Dashboard Frame */}
       <main className="flex-1 min-w-0 p-4 sm:p-6 lg:p-8 overflow-y-auto pb-24 md:pb-8">
-        
+
         {/* Header Section */}
         <header className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-8" id="studyos-header">
           {/* Brand/Welcome and Greeting */}
@@ -438,7 +438,7 @@ export default function App() {
                 July 6, 2026 • 11:48 PM UTC
               </span>
             </div>
-            
+
             <h1 className="text-2xl md:text-3xl font-display font-bold tracking-tight text-white mt-1.5">
               Hello, <span className="bg-gradient-to-r from-white via-indigo-200 to-accent-cyan bg-clip-text text-transparent">Scholar Mahin</span>
             </h1>
@@ -463,11 +463,10 @@ export default function App() {
             <div className="relative shrink-0">
               <button
                 onClick={() => setShowNotifications(!showNotifications)}
-                className={`p-2.5 rounded-xl border transition-all relative cursor-pointer ${
-                  showNotifications 
-                    ? 'bg-accent-purple/10 border-accent-purple/30 text-accent-purple shadow-sm' 
-                    : 'bg-[#0f172a]/60 border-white/5 text-slate-400 hover:text-white hover:bg-white/5'
-                }`}
+                className={`p-2.5 rounded-xl border transition-all relative cursor-pointer ${showNotifications
+                  ? 'bg-accent-purple/10 border-accent-purple/30 text-accent-purple shadow-sm'
+                  : 'bg-[#0f172a]/60 border-white/5 text-slate-400 hover:text-white hover:bg-white/5'
+                  }`}
                 id="header-notification-bell"
               >
                 <Bell className="w-5 h-5" />
@@ -479,7 +478,7 @@ export default function App() {
               {/* Notification Overlay Panel */}
               <AnimatePresence>
                 {showNotifications && (
-                  <NotificationDropdown 
+                  <NotificationDropdown
                     notifications={notifications}
                     onMarkAsRead={handleMarkAsRead}
                     onClearAll={handleClearAllNotifications}
@@ -508,7 +507,7 @@ export default function App() {
               key="dashboard"
             >
               {/* Animated Stats Cards Section */}
-              <StatsSection 
+              <StatsSection
                 completedTasks={completedCount}
                 totalTasks={totalCount}
                 focusMinutes={focusMinutes}
@@ -518,10 +517,10 @@ export default function App() {
 
               {/* Bento Grid layout */}
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                
+
                 {/* Column 1: Task List Node */}
                 <div className="lg:col-span-1 h-full min-h-[460px]">
-                  <TaskList 
+                  <TaskList
                     tasks={tasks}
                     onToggleTask={handleToggleTask}
                     onDeleteTask={handleDeleteTask}
@@ -550,7 +549,7 @@ export default function App() {
                         <Plus className="w-4 h-4 text-accent-purple transition-transform group-hover:scale-110" />
                         <span>New Task</span>
                       </button>
-                      
+
                       <button
                         onClick={() => {
                           alert("Starting Pomodoro Sprint! Toggle the central control button below.");
@@ -588,7 +587,7 @@ export default function App() {
                 <div className="lg:col-span-1 flex flex-col gap-6">
                   {/* Monthly Goals progress widgets */}
                   <div className="flex-1">
-                    <MonthlyGoals 
+                    <MonthlyGoals
                       goals={goals}
                       onIncrementGoal={incrementGoalProgress}
                       onAddGoal={handleAddGoal}
@@ -599,7 +598,7 @@ export default function App() {
 
                   {/* Dynamic Calendar Agenda */}
                   <div className="flex-1">
-                    <CalendarCard 
+                    <CalendarCard
                       events={events}
                       onAddEvent={handleAddCalendarEvent}
                     />
@@ -623,7 +622,7 @@ export default function App() {
               className="max-w-xl mx-auto py-8"
             >
               <div className="mb-4">
-                <button 
+                <button
                   onClick={() => setActiveSection('dashboard')}
                   className="text-xs text-slate-500 hover:text-white transition-colors"
                 >
@@ -642,14 +641,14 @@ export default function App() {
               className="max-w-2xl mx-auto py-8"
             >
               <div className="mb-4">
-                <button 
+                <button
                   onClick={() => setActiveSection('dashboard')}
                   className="text-xs text-slate-500 hover:text-white transition-colors"
                 >
                   ← Back to Dashboard
                 </button>
               </div>
-              <TaskList 
+              <TaskList
                 tasks={tasks}
                 onToggleTask={handleToggleTask}
                 onDeleteTask={handleDeleteTask}
@@ -667,14 +666,14 @@ export default function App() {
               className="max-w-2xl mx-auto py-8"
             >
               <div className="mb-4">
-                <button 
+                <button
                   onClick={() => setActiveSection('dashboard')}
                   className="text-xs text-slate-500 hover:text-white transition-colors"
                 >
                   ← Back to Dashboard
                 </button>
               </div>
-              <CalendarCard 
+              <CalendarCard
                 events={events}
                 onAddEvent={handleAddCalendarEvent}
               />
@@ -689,7 +688,7 @@ export default function App() {
               className="max-w-2xl mx-auto py-8"
             >
               <div className="mb-4">
-                <button 
+                <button
                   onClick={() => setActiveSection('dashboard')}
                   className="text-xs text-slate-500 hover:text-white transition-colors"
                 >
